@@ -11,6 +11,11 @@ public class CameraMoveHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		CameraOnMove();
+	}
+
+	public void CameraOnMove()
+	{
 		transform.position += Vector3.up *0.1f;
 	}
 }

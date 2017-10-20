@@ -8,7 +8,7 @@ public class MoveTrigger : MonoBehaviour {
 
 	public void OnTriggerEnter2D(Collider2D other)
 	{
-		if(other.tag.Equals("player"))
+		if(other.tag.Equals("male") || other.tag.Equals("famale"))
 		{
 			if(callBack != null)
 			{

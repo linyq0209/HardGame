@@ -20,11 +20,11 @@ public class PlayerController : MonoBehaviour {
 
 	protected void OnClickLeft()
 	{
-		playerObj.transform.localPosition += new Vector3(-1,0,0);
+		playerObj.transform.localPosition += new Vector3(-2.5f,0,0);
 	}
 
 	protected void OnClickRight()
 	{
-		playerObj.transform.localPosition += new Vector3(1,0,0);
+		playerObj.transform.localPosition += new Vector3(2.5f,0,0);
 	}
 }

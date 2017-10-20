@@ -1,23 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class BollController : MonoBehaviour {
-	bool canMove = true;
-
-	// Use this for initialization
+	
 	void Start () {
 		
 	}
 	
-	// Update is called once per frame
 	void Update () {
-		if(canMove)
-			transform.localPosition += new Vector3(0,-10,0);
+		
 	}
 
-	public void OnClickBoll()
+	public void OnInitBollInfo(int bollConfig)
 	{
-		canMove = false;
+
+	}
+
+	public void OnTriggerEnter2D(Collider2D other)
+	{
+		if(other.tag.Equals("male"))
+		{
+			Debug.Log("姑娘请自重");
+		}
+		if(other.tag.Equals("famale"))
+		{
+			Debug.Log("先生别这样");
+		}
 	}
 }
