@@ -76,7 +76,6 @@ public class CreateBoll : MonoBehaviour {
 	//控制生成item
 	protected void InitNewBollPosition(int p,int line)
 	{
-		Debug.Log("====" + p);
 		if(line == 2)
 		{
 			p += 3;
@@ -87,9 +86,11 @@ public class CreateBoll : MonoBehaviour {
 		}
 		GameObject obj = GameObject.Instantiate(ResourceManager.GetInstance().GetPrefab(GUI_NAME));
 		obj.transform.parent = pArray[p];
-		obj.transform.localPosition = new Vector3(0,0,0);
+		float positionY = Random.Range(-0.4f,0.4f);
+		obj.transform.localPosition = new Vector3(0,positionY,0);
 		obj.layer = obj.transform.parent.gameObject.layer;
-		
+		int res = p+1;
+		Debug.Log("ItemOrder =======" + res);
 	}
 	//随机生成的物体是1个还是2个
 	protected int RandomChildCount()

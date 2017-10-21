@@ -17,10 +17,11 @@ public class BGMoveHandler : MonoBehaviour {
 	protected void MoveTriggerCallBack(Transform tarns)
 	{
 		tarns.localPosition = lastBg.localPosition + new Vector3(0,13.3f,0);
-		if(tarns.GetComponent<CreateBoll>() == null)
-		{
-			Debug.Log("is null"+tarns.name);		
-		}
+		//@TDSH
+		// if(tarns.GetComponent<CreateBoll>() == null)
+		// {
+		// 	Debug.Log("is null"+tarns.name);		
+		// }
 		tarns.GetComponent<CreateBoll>().ToCreateBoll();
 		lastBg = tarns;
 	}

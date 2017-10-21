@@ -13,7 +13,7 @@ public class BollController : MonoBehaviour {
 		
 	}
 
-	public void OnInitBollInfo(int bollConfig)
+	protected void InitBollInfo()
 	{
 
 	}
