@@ -163,7 +163,7 @@ public class FileUtility
 
 	public static CsvFile LoadCsvFile(string configName, Encoding encoding = null )
 	{
-		
+		Debug.Log ("+++++++++++++" + configName);
 		Stream stream = GetConfigStream(configName, ".csv");
 		if(stream != null)
 		{
