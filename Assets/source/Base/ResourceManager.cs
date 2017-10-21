@@ -18,11 +18,11 @@ public class ResourceManager : PSingleton<ResourceManager>
     }
 
 
-    public void LoadScene(string name)
-    {
-        Application.LoadLevel(name);
-    }
-
+//    public void LoadScene(string name)
+//    {
+//        Application.LoadLevel(name);
+//    }
+//
 
      public T GetAsset<T>(string name) where T : UnityEngine.Object
     {
