@@ -8,6 +8,7 @@ public class CSVTestController : MonoBehaviour {
 	void Start () {
 		Debug.Log ("============");
 		CSVTestManager.GetInstance ();
+		// ResourceManager.GetInstance().GetPrefab(string name)
 	}
 	
 	// Update is called once per frame

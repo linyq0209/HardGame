@@ -22,12 +22,24 @@ public class PlayerController : MonoBehaviour {
 
 	protected void OnClickLeft()
 	{
-		playerObj.transform.localPosition += new Vector3(-speed,0,0);
+		if(playerObj.transform.localPosition.x < -2.2f ) 
+		{
+			return;
+		}
+		else{
+			playerObj.transform.localPosition += new Vector3(-2.5f,0,0);
+		}
 	}
 
 	protected void OnClickRight()
 	{
-		playerObj.transform.localPosition += new Vector3(speed,0,0);
+		if(playerObj.transform.localPosition.x > 2.5f )
+		{
+			return;
+		}
+		else{
+			playerObj.transform.localPosition += new Vector3(2.5f,0,0);
+		}
 	}
 
 	public void ChangeGreenCap(bool isReduce)

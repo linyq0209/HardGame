@@ -23,10 +23,12 @@ public class BollController : MonoBehaviour {
 		if(other.tag.Equals("male"))
 		{
 			Debug.Log("姑娘请自重");
+			gameObject.active = false;
 		}
 		if(other.tag.Equals("famale"))
 		{
 			Debug.Log("先生别这样");
+			gameObject.active = false;
 		}
 	}
 }
