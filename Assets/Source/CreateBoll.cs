@@ -90,7 +90,7 @@ public class CreateBoll : MonoBehaviour {
 		obj.transform.localPosition = new Vector3(0,positionY,0);
 		obj.layer = obj.transform.parent.gameObject.layer;
 		int res = p+1;
-		Debug.Log("ItemOrder =======" + res);
+		Debug.Log("ItemPosition =======" + res);
 	}
 	//随机生成的物体是1个还是2个
 	protected int RandomChildCount()

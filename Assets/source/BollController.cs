@@ -4,12 +4,21 @@ using UnityEngine;
 using System;
 
 public class BollController : MonoBehaviour {
-	
+	public GameObject trustValue;
+
+	private int time = 0;
+
 	void Start () {
 		
 	}
 	
 	void Update () {
+		
+	}
+
+	void FixedUpdate()
+	{
+		time += 1;
 		
 	}
 
