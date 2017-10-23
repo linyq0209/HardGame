@@ -7,7 +7,6 @@ public class CreateBoll : MonoBehaviour {
 	private const string GUI_NAME = "boll";
 	Transform[] pArray = new Transform[9];
 	public Transform itemPool;
-
 	void Awake() {
 		InitPosition();
 	}

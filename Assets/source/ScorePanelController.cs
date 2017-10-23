@@ -18,10 +18,11 @@ public class ScorePanelController : MonoBehaviour {
 	void FixedUpdate()
 	{
 		time += 1;
-		if(time % 5 == 0)
+		if(time % 50 == 0)
 		{
-			string value = (time/5).ToString();
+			string value = (time/50).ToString();
 			score.text = value + "hours";
 		}
 	}
+
 }

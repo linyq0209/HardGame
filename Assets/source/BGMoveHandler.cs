@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class BGMoveHandler : MonoBehaviour {
 	public Transform lastBg;
-
 	void Start()
 	{
 		foreach(MoveTrigger trigger in GetComponentsInChildren<MoveTrigger>())
@@ -23,6 +22,7 @@ public class BGMoveHandler : MonoBehaviour {
 		// 	Debug.Log("is null"+tarns.name);		
 		// }
 		tarns.GetComponent<CreateBoll>().ToCreateBoll();
+		Debug.Log("============has get it============");
 		lastBg = tarns;
 	}
 }

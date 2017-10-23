@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -24,7 +24,7 @@ public class BollController : MonoBehaviour {
 
 	protected void InitBollInfo()
 	{
-
+		
 	}
 
 	public void OnTriggerEnter2D(Collider2D other)
