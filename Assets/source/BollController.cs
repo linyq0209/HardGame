@@ -33,11 +33,16 @@ public class BollController : MonoBehaviour {
 		{
 			Debug.Log("姑娘请自重");
 			gameObject.active = false;
+			//给女人加一顶绿帽子
+			EventNotificationCenter.GetInstance().Broadcast<int>(BroadEvent.GREENCAPDATA_EVENT,GreenCap.Give_Famale);
+
 		}
 		if(other.tag.Equals("famale"))
 		{
 			Debug.Log("先生别这样");
 			gameObject.active = false;
+			//给男人加一顶绿帽子
+			EventNotificationCenter.GetInstance().Broadcast<int>(BroadEvent.GREENCAPDATA_EVENT,GreenCap.Give_Male);
 		}
 	}
 }

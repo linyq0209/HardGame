@@ -22,7 +22,7 @@ public class BGMoveHandler : MonoBehaviour {
 		// 	Debug.Log("is null"+tarns.name);		
 		// }
 		tarns.GetComponent<CreateBoll>().ToCreateBoll();
-		Debug.Log("============has get it============");
+		Debug.Log("============Trigger Collision!============");
 		lastBg = tarns;
 	}
 }
