@@ -9,8 +9,9 @@ public class ScorePanelController : MonoBehaviour {
 	private int time = 0;
 	public GameObject pauseBtn;
 	public GameObject exitBtn;
+	public GameObject startPanel;
 	public Text gameState;
-	private bool isStartGame = true;
+	private bool isStartGame = false;
 	public Text maleStatusBar;
 	public Text famaleStatusBar;
 	private int maleCapCount = 0;
@@ -20,6 +21,7 @@ public class ScorePanelController : MonoBehaviour {
 		pauseBtn.GetComponent<Button>().onClick.AddListener(OnClickPauseBtn);
 		exitBtn.GetComponent<Button>().onClick.AddListener(OnClickExitBtn);
 		EventNotificationCenter.GetInstance().AddListener<int>(BroadEvent.GREENCAPDATA_EVENT,AddGreenCap);
+		EventNotificationCenter.GetInstance().AddListener<bool>(BroadEvent.GAMESTART_EVENT,StartGame);
 	}
 	
 	void Update () {
@@ -42,6 +44,13 @@ public class ScorePanelController : MonoBehaviour {
 	void OnDestroy()
 	{
 		EventNotificationCenter.GetInstance().RemoveListener<int>(BroadEvent.GREENCAPDATA_EVENT,AddGreenCap);
+		EventNotificationCenter.GetInstance().RemoveListener<bool>(BroadEvent.GAMESTART_EVENT,StartGame);
+	}
+
+	//开始游戏
+	void StartGame(bool eventVO)
+	{
+		isStartGame = eventVO;
 	}
 
 	//暂停按钮点击事件
@@ -64,9 +73,12 @@ public class ScorePanelController : MonoBehaviour {
 	//结束游戏按钮点击事件
 	protected void OnClickExitBtn()
 	{
-		Debug.Log("Exit Game");
+		isStartGame = false;
+		EventNotificationCenter.GetInstance().Broadcast<bool>(BroadEvent.PAUSE_EVENT,Pause.Game_Pause);
+		startPanel.SetActive(true);
 	}
 
+	//得分栏添加绿帽子
 	protected void AddGreenCap(int sex)
 	{
 		if(sex == 0)
