@@ -16,12 +16,15 @@ public class ScorePanelController : MonoBehaviour {
 	public Text famaleStatusBar;
 	private int maleCapCount = 0;
 	private int famaleCapCount = 0;
+	public Text maleName;
+	public Text famaleName;
 
 	void Start () {
 		pauseBtn.GetComponent<Button>().onClick.AddListener(OnClickPauseBtn);
 		exitBtn.GetComponent<Button>().onClick.AddListener(OnClickExitBtn);
 		EventNotificationCenter.GetInstance().AddListener<int>(BroadEvent.GREENCAPDATA_EVENT,AddGreenCap);
 		EventNotificationCenter.GetInstance().AddListener<bool>(BroadEvent.GAMESTART_EVENT,StartGame);
+		EventNotificationCenter.GetInstance().AddListener<string,string>(BroadEvent.INPUTNAME_EVENT,InputName);
 	}
 	
 	void Update () {
@@ -45,6 +48,7 @@ public class ScorePanelController : MonoBehaviour {
 	{
 		EventNotificationCenter.GetInstance().RemoveListener<int>(BroadEvent.GREENCAPDATA_EVENT,AddGreenCap);
 		EventNotificationCenter.GetInstance().RemoveListener<bool>(BroadEvent.GAMESTART_EVENT,StartGame);
+		EventNotificationCenter.GetInstance().RemoveListener<string,string>(BroadEvent.INPUTNAME_EVENT,InputName);
 	}
 
 	//开始游戏
@@ -91,5 +95,12 @@ public class ScorePanelController : MonoBehaviour {
 			famaleCapCount++;
 			famaleStatusBar.text = string.Format("GreenCap X {0}", famaleCapCount);
 		}
+	}
+
+	//改名
+	protected void InputName(string male,string famale)
+	{
+		maleName.text = male;
+		famaleName.text = famale;
 	}
 }

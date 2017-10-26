@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CameraMoveHandler : MonoBehaviour {
+	public GameObject player;
 	private bool isMoveCamera = false;
 	private const string GUI_NAME = "greenCap";
-	private float initPositionY = -3.39f;
+	private float initPositionY = 0.571f;
 
 	void Start () {
 		EventNotificationCenter.GetInstance().AddListener<bool>(BroadEvent.PAUSE_EVENT,PauseMove);
@@ -55,8 +56,8 @@ public class CameraMoveHandler : MonoBehaviour {
 		if(gameObject.transform.name == "Camera_1" && sex == 0)
 		{
 			GameObject obj = GameObject.Instantiate(ResourceManager.GetInstance().GetPrefab(GUI_NAME));
-			obj.transform.parent = gameObject.transform;
-			obj.transform.localPosition = new Vector3(0.2f,initPositionY,200f);
+			obj.transform.parent = player.transform;
+			obj.transform.localPosition = new Vector3(-0.027f,initPositionY,0);
 			obj.layer = obj.transform.parent.gameObject.layer;
 			initPositionY += 0.3f;
 		}
@@ -65,8 +66,8 @@ public class CameraMoveHandler : MonoBehaviour {
 		if(gameObject.transform.name == "Camera_2" && sex == 1)
 		{
 			GameObject obj = GameObject.Instantiate(ResourceManager.GetInstance().GetPrefab(GUI_NAME));
-			obj.transform.parent = gameObject.transform;
-			obj.transform.localPosition = new Vector3(0.2f,initPositionY,200f);
+			obj.transform.parent = player.transform;
+			obj.transform.localPosition = new Vector3(-0.027f,initPositionY,0);
 			obj.layer = obj.transform.parent.gameObject.layer;
 			initPositionY += 0.3f;
 		}

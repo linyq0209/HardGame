@@ -27,7 +27,7 @@ public class BollController : MonoBehaviour {
 	{
 		if(other.tag.Equals("male"))
 		{
-			Debug.Log("姑娘请自重");
+			// Debug.Log("姑娘请自重");
 			//给女人加一顶绿帽子
 			EventNotificationCenter.GetInstance().Broadcast<int>(BroadEvent.GREENCAPDATA_EVENT,GreenCap.Give_Famale);
 			Destroy(this.gameObject);
@@ -35,7 +35,7 @@ public class BollController : MonoBehaviour {
 		}
 		if(other.tag.Equals("famale"))
 		{
-			Debug.Log("先生别这样");
+			// Debug.Log("先生别这样");
 			//给男人加一顶绿帽子
 			EventNotificationCenter.GetInstance().Broadcast<int>(BroadEvent.GREENCAPDATA_EVENT,GreenCap.Give_Male);
 			Destroy(this.gameObject);

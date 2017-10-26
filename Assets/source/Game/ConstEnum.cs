@@ -12,6 +12,8 @@ public class BroadEvent {
 	public const string PAUSE_EVENT = "PAUSE_EVENT";//暂停游戏 游戏内控制
 
 	public const string GREENCAPDATA_EVENT = "GREENCAPDATA_EVENT";//绿帽子派发
+
+	public const string INPUTNAME_EVENT = "INPUTNAME_EVENT";  //游戏角色改名事件
 }
 
 //buff
@@ -37,4 +39,13 @@ public class Pause {
 	
 	public const bool Game_Pause = false;//暂停游戏
 }
+
+//游戏默认名字
+public class Name {
+	public const string SysMale = "熊大";
+
+	public const string SysFamale = "熊二";
+}
+
+
 
