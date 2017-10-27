@@ -1,0 +1,20 @@
+
+AB_AnNiuGuang.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ChuangJian
+  rotate: false
+  xy: 2, 2
+  size: 179, 68
+  orig: 179, 68
+  offset: 0, 0
+  index: -1
+TongYong
+  rotate: false
+  xy: 183, 11
+  size: 174, 59
+  orig: 174, 59
+  offset: 0, 0
+  index: -1

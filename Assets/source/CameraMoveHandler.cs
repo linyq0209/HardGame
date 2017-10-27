@@ -13,6 +13,7 @@ public class CameraMoveHandler : MonoBehaviour {
 		EventNotificationCenter.GetInstance().AddListener<bool>(BroadEvent.PAUSE_EVENT,PauseMove);
 		EventNotificationCenter.GetInstance().AddListener<int>(BroadEvent.GREENCAPDATA_EVENT,AddGreenCap);
 		EventNotificationCenter.GetInstance().AddListener<bool>(BroadEvent.GAMESTART_EVENT,StartGame);
+		EventNotificationCenter.GetInstance().AddListener(BroadEvent.GAMERESET_EVENT,ResetPosition);
 	}
 	
 	void Update () {
@@ -32,9 +33,10 @@ public class CameraMoveHandler : MonoBehaviour {
 		EventNotificationCenter.GetInstance().RemoveListener<bool>(BroadEvent.PAUSE_EVENT,PauseMove);
 		EventNotificationCenter.GetInstance().RemoveListener<int>(BroadEvent.GREENCAPDATA_EVENT,AddGreenCap);
 		EventNotificationCenter.GetInstance().RemoveListener<bool>(BroadEvent.GAMESTART_EVENT,StartGame);
+		EventNotificationCenter.GetInstance().RemoveListener(BroadEvent.GAMERESET_EVENT,ResetPosition);
 	}
 
-	//开始有游戏
+	//开始游戏
 	void StartGame(bool eventVO)
 	{
 		isMoveCamera = eventVO;
@@ -71,5 +73,19 @@ public class CameraMoveHandler : MonoBehaviour {
 			obj.layer = obj.transform.parent.gameObject.layer;
 			initPositionY += 0.3f;
 		}
+	}
+
+	//重置初始位置
+	protected void ResetPosition()
+	{
+		if(gameObject.transform.name == "Camera_1")
+		{
+			gameObject.transform.localPosition = new Vector3(-5.5f,-1.15f,90f);
+		}
+		if(gameObject.transform.name == "Camera_2")
+		{
+			gameObject.transform.localPosition = new Vector3(6f,-1.3f,90f);
+		}
+		initPositionY = 0.571f;
 	}
 }

@@ -18,17 +18,31 @@ public class ScorePanelController : MonoBehaviour {
 	private int famaleCapCount = 0;
 	public Text maleName;
 	public Text famaleName;
+	public AudioSource bgMusic;
+	private int greenCapCount = 0;
+	public GameObject gameOverSprite;
+	private int sex;
 
 	void Start () {
 		pauseBtn.GetComponent<Button>().onClick.AddListener(OnClickPauseBtn);
 		exitBtn.GetComponent<Button>().onClick.AddListener(OnClickExitBtn);
+		//监听添加绿帽子事件
 		EventNotificationCenter.GetInstance().AddListener<int>(BroadEvent.GREENCAPDATA_EVENT,AddGreenCap);
+		//监听游戏开始事件
 		EventNotificationCenter.GetInstance().AddListener<bool>(BroadEvent.GAMESTART_EVENT,StartGame);
+		//监听登陆画面输入的姓名
 		EventNotificationCenter.GetInstance().AddListener<string,string>(BroadEvent.INPUTNAME_EVENT,InputName);
 	}
 	
 	void Update () {
-		
+		if(greenCapCount == 10 && isStartGame)
+		{
+			isStartGame = false;
+			gameOverSprite.SetActive(true);
+			bgMusic.GetComponent<AudioSource>().Pause();
+			//派发游戏暂停事件
+			EventNotificationCenter.GetInstance().Broadcast<bool>(BroadEvent.PAUSE_EVENT,Pause.Game_Pause);
+		}
 	}
 
 	//游戏积分
@@ -46,6 +60,7 @@ public class ScorePanelController : MonoBehaviour {
 
 	void OnDestroy()
 	{
+		//移除监听
 		EventNotificationCenter.GetInstance().RemoveListener<int>(BroadEvent.GREENCAPDATA_EVENT,AddGreenCap);
 		EventNotificationCenter.GetInstance().RemoveListener<bool>(BroadEvent.GAMESTART_EVENT,StartGame);
 		EventNotificationCenter.GetInstance().RemoveListener<string,string>(BroadEvent.INPUTNAME_EVENT,InputName);
@@ -55,6 +70,7 @@ public class ScorePanelController : MonoBehaviour {
 	void StartGame(bool eventVO)
 	{
 		isStartGame = eventVO;
+		bgMusic.gameObject.SetActive(eventVO);
 	}
 
 	//暂停按钮点击事件
@@ -63,22 +79,35 @@ public class ScorePanelController : MonoBehaviour {
 		if(!isStartGame)
 		{
 			isStartGame = true;
+			bgMusic.GetComponent<AudioSource>().Play(); 
 			gameState.text = "Pause"; 
-			EventNotificationCenter.GetInstance().Broadcast<bool>(BroadEvent.PAUSE_EVENT,Pause.Game_Start);
+			//派发游戏继续事件
+			EventNotificationCenter.GetInstance().Broadcast<bool>(BroadEvent.PAUSE_EVENT,Pause.Game_Continue);
 		}
 		else
 		{
 			isStartGame = false;
+			bgMusic.GetComponent<AudioSource>().Pause();
 			gameState.text = "Start"; 
 			EventNotificationCenter.GetInstance().Broadcast<bool>(BroadEvent.PAUSE_EVENT,Pause.Game_Pause);
 		}
 	}
 
-	//结束游戏按钮点击事件
+	//结束游戏按钮点击事件 重置所有参数
 	protected void OnClickExitBtn()
 	{
+		greenCapCount = 0;
 		isStartGame = false;
 		EventNotificationCenter.GetInstance().Broadcast<bool>(BroadEvent.PAUSE_EVENT,Pause.Game_Pause);
+		EventNotificationCenter.GetInstance().Broadcast(BroadEvent.GAMERESET_EVENT);
+		bgMusic.gameObject.SetActive(false);
+		gameOverSprite.SetActive(false);
+		maleStatusBar.text = "";
+		famaleStatusBar.text = "";
+		score.text = "";
+		maleCapCount = 0;
+		famaleCapCount = 0;
+		time = 0;
 		startPanel.SetActive(true);
 	}
 
@@ -95,6 +124,7 @@ public class ScorePanelController : MonoBehaviour {
 			famaleCapCount++;
 			famaleStatusBar.text = string.Format("GreenCap X {0}", famaleCapCount);
 		}
+		greenCapCount++;
 	}
 
 	//改名

@@ -7,6 +7,7 @@ public class CreateBoll : MonoBehaviour {
 	private const string GUI_NAME = "boll";
 	Transform[] pArray = new Transform[9];
 	public Transform itemPool;
+	
 	void Awake() {
 		InitPosition();
 	}
@@ -17,12 +18,17 @@ public class CreateBoll : MonoBehaviour {
 		// 	Debug.Log(transform.name+"===="+p.name+"===="+p.localPosition);
 		// }
 		// ToCreateBoll();
+		EventNotificationCenter.GetInstance().AddListener(BroadEvent.GAMERESET_EVENT,Reset);
 	}
 	
 	void Update () {
 		
 	}
 
+	void OnDestroy()
+	{
+		EventNotificationCenter.GetInstance().RemoveListener(BroadEvent.GAMERESET_EVENT,Reset);
+	}
 	//初始化9个位置，用pArray来统一管理9个位置
 	protected void InitPosition()
 	{
@@ -110,8 +116,13 @@ public class CreateBoll : MonoBehaviour {
 			foreach (Transform child in i)  
         	{  
         		if(child != null)
-           		child.transform.gameObject.active = false; 
+           		Destroy(child.transform.gameObject);
         	}  
 		}
+	}
+	//游戏重置
+	protected void Reset()
+	{
+		ReFreshPanel();
 	}
 }

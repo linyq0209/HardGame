@@ -14,6 +14,8 @@ public class BroadEvent {
 	public const string GREENCAPDATA_EVENT = "GREENCAPDATA_EVENT";//绿帽子派发
 
 	public const string INPUTNAME_EVENT = "INPUTNAME_EVENT";  //游戏角色改名事件
+
+	public const string GAMERESET_EVENT = "GAMERESET_EVENT"; //游戏重置
 }
 
 //buff
@@ -34,8 +36,9 @@ public class GreenCap {
 
 //游戏内控制参数
 public class Pause {
+	public const bool Game_Start = true; //游戏开始
 
-	public const bool Game_Start = true;//开始游戏
+	public const bool Game_Continue = true;//继续游戏
 	
 	public const bool Game_Pause = false;//暂停游戏
 }
