@@ -21,7 +21,7 @@ public class ScorePanelController : MonoBehaviour {
 	public AudioSource bgMusic;
 	private int greenCapCount = 0;
 	public GameObject gameOverSprite;
-	private int sex;
+	
 
 	void Start () {
 		pauseBtn.GetComponent<Button>().onClick.AddListener(OnClickPauseBtn);
