@@ -3,22 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CreateBoll : MonoBehaviour {
-
+	public GameObject pooler;
+	private PoolerManager poolerManager;
 	private const string GUI_NAME = "boll";
 	Transform[] pArray = new Transform[9];
-	public Transform itemPool;
 	
 	void Awake() {
 		InitPosition();
 	}
+
 	void Start () {
 		//@TDSH
 		// foreach (Transform p in pArray)
 		// {
 		// 	Debug.Log(transform.name+"===="+p.name+"===="+p.localPosition);
 		// }
-		// ToCreateBoll();
+		poolerManager = pooler.GetComponent<PoolerManager>();
 		EventNotificationCenter.GetInstance().AddListener(BroadEvent.GAMERESET_EVENT,Reset);
+		//设置对象池存放对象
+		
 	}
 	
 	void Update () {
@@ -29,6 +32,7 @@ public class CreateBoll : MonoBehaviour {
 	{
 		EventNotificationCenter.GetInstance().RemoveListener(BroadEvent.GAMERESET_EVENT,Reset);
 	}
+
 	//初始化9个位置，用pArray来统一管理9个位置
 	protected void InitPosition()
 	{
@@ -52,26 +56,36 @@ public class CreateBoll : MonoBehaviour {
   		}
 	}
 
-	//  外部调用，创建新的item
+	//外部调用，创建新的item
 	public void ToCreateBoll()
 	{
 		ReFreshPanel();
+		int times = CodeGameInfo.GetInstance().GetCreateTimes();
+		//记录bg创建item的次数
+		if(times < 20)
+		{
+			CodeGameInfo.GetInstance().SetCreateTimes(1);
+		} 
 		int[] numberArray = new int[]{0,1,2};
 		int createCount = 0;
 		for(int i = 1; i < 4; i++)
 		{
+			//计算创建item的个数
 			createCount = RandomChildCount();
 			int resNum = RandomChildOrdinalNumber();
+			//创建1个
 			if(createCount ==1)
 			{
-				InitNewBollPosition(resNum,i);
+				InitNewBollPosition(resNum,i,times);
 			}
-			else{
+			//创建2个
+			else
+			{
 				foreach(int j in numberArray)
 				{
 					if(numberArray[j] != resNum) 
 					{
-						InitNewBollPosition(numberArray[j],i); 
+						InitNewBollPosition(numberArray[j],i,times); 
 					}
 				}
 			}
@@ -79,7 +93,7 @@ public class CreateBoll : MonoBehaviour {
 	}
 
 	//控制生成item
-	protected void InitNewBollPosition(int p,int line)
+	protected void InitNewBollPosition(int p,int line,int createTimes)
 	{
 		if(line == 2)
 		{
@@ -89,12 +103,20 @@ public class CreateBoll : MonoBehaviour {
 		{
 			p += 6;
 		}
-		GameObject obj = GameObject.Instantiate(ResourceManager.GetInstance().GetPrefab(GUI_NAME));
-		obj.transform.parent = pArray[p];
-		float positionY = Random.Range(-0.4f,0.4f);
-		obj.transform.localPosition = new Vector3(0,positionY,0);
-		obj.layer = obj.transform.parent.gameObject.layer;
-		int res = p+1;
+		if(createTimes != 20)
+		{
+			GameObject obj = GameObject.Instantiate(ResourceManager.GetInstance().GetPrefab(GUI_NAME));
+			obj.transform.parent = pArray[p];
+			float positionY = Random.Range(-0.4f,0.4f);
+			obj.transform.localPosition = new Vector3(0,positionY,0);
+			obj.layer = obj.transform.parent.gameObject.layer;
+		}	
+		//如果创建次数等6次，不再实例化item，而是复用item
+		else
+		{
+			Reuse(p);
+		}
+		
 	}
 	//随机生成的物体是1个还是2个
 	protected int RandomChildCount()
@@ -115,14 +137,39 @@ public class CreateBoll : MonoBehaviour {
 		{
 			foreach (Transform child in i)  
         	{  
-        		if(child != null)
-           		Destroy(child.transform.gameObject);
+        		if(child != null) 
+        		{
+					poolerManager.PutPoolObj("itemPool",child.transform.gameObject);	
+        		}
+        		Debug.Log(child.transform.parent.gameObject.ToString());
         	}  
 		}
 	}
+
+	//复用item,不再重新实例化生成
+	protected void Reuse(int p)
+	{
+		GameObject pool = poolerManager.GetPoolObj("itemPool");
+		
+		foreach (Transform child in pool.transform)  
+        	{  
+        		if(child.name == "boll(Clone)") 
+        		{
+        			child.parent = pArray[p];
+					float positionY = Random.Range(-0.4f,0.4f);
+					child.localPosition = new Vector3(0,positionY,0);
+					child.gameObject.layer = child.parent.gameObject.layer;
+					child.gameObject.SetActive(true);
+					return;
+        		}
+        	}  
+	}
+
 	//游戏重置
 	protected void Reset()
 	{
 		ReFreshPanel();
+		poolerManager.ClearPool("itemPool");
+		CodeGameInfo.GetInstance().ResetCreateTimes();
 	}
 }

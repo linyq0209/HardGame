@@ -81,9 +81,9 @@ public class StartPanelController : MonoBehaviour {
 		setHeadView.transform.localPosition = new Vector3(198f,-19.9f,0f);
 		sex = GreenCap.Give_Famale;
 	}
-	//调用图片处理 当choose = 0 的时候打开相机拍照  ||  choose=1的时候打开相册 
+	// 调用图片处理 当choose = 0 的时候打开相机拍照  ||  choose=1的时候打开相册 
 	// public void TakePhoto(int sex ,int choose){
- // 	      ImgManage.TakePhoto(choose);
+ // 		 ImgManage.TakePhoto(choose);
 	// }
 }
 

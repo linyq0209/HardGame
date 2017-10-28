@@ -34,15 +34,16 @@ public class ScorePanelController : MonoBehaviour {
 		EventNotificationCenter.GetInstance().AddListener<string,string>(BroadEvent.INPUTNAME_EVENT,InputName);
 	}
 	
+	//控制游戏结束
 	void Update () {
-		if(greenCapCount == 10 && isStartGame)
-		{
-			isStartGame = false;
-			gameOverSprite.SetActive(true);
-			bgMusic.GetComponent<AudioSource>().Pause();
-			//派发游戏暂停事件
-			EventNotificationCenter.GetInstance().Broadcast<bool>(BroadEvent.PAUSE_EVENT,Pause.Game_Pause);
-		}
+		// if(greenCapCount == 10 && isStartGame)
+		// {
+		// 	isStartGame = false;
+		// 	//派发游戏暂停事件
+		// 	EventNotificationCenter.GetInstance().Broadcast<bool>(BroadEvent.PAUSE_EVENT,Pause.Game_Pause);
+		// 	bgMusic.GetComponent<AudioSource>().Pause();
+		// 	gameOverSprite.SetActive(true);
+		// }
 	}
 
 	//游戏积分
