@@ -16,7 +16,7 @@ public class CameraMoveHandler : MonoBehaviour {
 		EventNotificationCenter.GetInstance().AddListener(BroadEvent.GAMERESET_EVENT,ResetPosition);
 	}
 	
-	void Update () {
+	void LateUpdate () {
 		if(isMoveCamera)
 		{
 			CameraOnMove();
