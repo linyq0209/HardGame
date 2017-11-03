@@ -23,6 +23,10 @@ public class BollController : MonoBehaviour {
 	{
 		yield return 1;
 		DropHeadConfig config = DropHeadManager.GetInstance().GetRandomConfig();
+		if(config == null)
+		{
+			Debug.LogError("配置为 null");
+		}
 		spriteIcon.sprite = ResourceManager.GetInstance().GetSprite(config.GetIconName());
 	}
 
