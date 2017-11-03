@@ -43,7 +43,6 @@ public class DropHeadManager : PSingleton<DropHeadManager> {
 			Debug.LogError("权重等于0，无法随机，请先确认表格读取无误");
 		}
 		int randomNum = Random.Range(1,allWeight+1);
-		Debug.Log("----random:------------"+randomNum);
 		int weight = 0;
 		foreach(DropHeadConfig config in dicConifg.Values)
 		{
