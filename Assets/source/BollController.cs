@@ -4,23 +4,26 @@ using UnityEngine;
 using System;
 
 public class BollController : MonoBehaviour {
-
+	private SpriteRenderer spriteIcon;
 	void Start () {
-		
-	}
-	
-	void Update () {
-		
-	}
-
-	void FixedUpdate()
-	{
-		
+		spriteIcon = GetComponent<SpriteRenderer>();
 	}
 
 	protected void InitBollInfo()
 	{
 		
+	}
+
+	void OnEnable()
+	{
+		StartCoroutine(NextFrameDo());
+	}
+
+	IEnumerator NextFrameDo()
+	{
+		yield return 1;
+		DropHeadConfig config = DropHeadManager.GetInstance().GetRandomConfig();
+		spriteIcon.sprite = ResourceManager.GetInstance().GetSprite(config.GetIconName());
 	}
 
 	public void OnTriggerEnter2D(Collider2D other)
