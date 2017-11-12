@@ -8,7 +8,7 @@ public class PoolerManager : MonoBehaviour {
 	void Start () {
 		Pooler.SetPooler(gameObject);
 		//新建对象池
-		Pooler.CreatePool("itemPool",pool);
+		Pooler.CreatePool("itemPool",pool,0);
 	}
 	
 	void Update () {

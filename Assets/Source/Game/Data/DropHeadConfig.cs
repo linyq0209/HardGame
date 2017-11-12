@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum DropSort
+{
+	head_icon = 0,
+	buff,
+	debuff
+}
+
 public class DropHeadConfig  {
 
 	protected int itemID = 1001;
@@ -34,5 +41,27 @@ public class DropHeadConfig  {
 	public string GetIconName()
 	{
 		return itemName;
+	}
+
+	public int GetEffectId()
+	{
+		return itemEffect;
+	}
+
+	public DropSort GetItemSort()
+	{
+		DropSort sort = DropSort.head_icon;
+		switch(itemSort)
+		{
+			case 0: return sort = DropSort.head_icon;break;
+			case 1: return sort = DropSort.buff;break;
+			case 2: return sort = DropSort.debuff;break;
+		}
+		return sort;
+	}
+
+	public float GetTime()
+	{
+		return itemTime;
 	}
 }

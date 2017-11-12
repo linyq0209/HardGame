@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour {
 			return;
 		}
 		else{
-			playerObj.transform.localPosition += new Vector3(-2.5f,0,0);
+			playerObj.transform.localPosition += new Vector3(-speed,0,0);
 		}
 	}
 
@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour {
 			return;
 		}
 		else{
-			playerObj.transform.localPosition += new Vector3(2.5f,0,0);
+			playerObj.transform.localPosition += new Vector3(speed,0,0);
 		}
 	}
 	

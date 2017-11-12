@@ -8,4 +8,4 @@ ID,Name,Sort,Effect,Time,Weight
 1007,girl_3,0,0,0,20
 1008,girl_4,0,0,0,20
 1009,buff_1,1,101,3,0
-1010,debuff_1,2,151,3,0
+1010,debuff_1,2,151,3,20

@@ -5,6 +5,9 @@ using System;
 
 public class BollController : MonoBehaviour {
 	private SpriteRenderer spriteIcon;
+	private DropSort sort;
+	private DropHeadConfig mConfig;
+
 	void Start () {
 		spriteIcon = GetComponent<SpriteRenderer>();
 	}
@@ -22,30 +25,32 @@ public class BollController : MonoBehaviour {
 	IEnumerator NextFrameDo()
 	{
 		yield return 1;
-		DropHeadConfig config = DropHeadManager.GetInstance().GetRandomConfig();
-		if(config == null)
+		mConfig = DropHeadManager.GetInstance().GetRandomConfig();
+		if(mConfig == null)
 		{
 			Debug.LogError("配置为 null");
 		}
-		spriteIcon.sprite = ResourceManager.GetInstance().GetSprite(config.GetIconName());
+		spriteIcon.sprite = ResourceManager.GetInstance().GetSprite(mConfig.GetIconName());
+		sort = mConfig.GetItemSort();
 	}
 
 	public void OnTriggerEnter2D(Collider2D other)
 	{
-		if(other.tag.Equals("male"))
+		if(other.tag.Equals("male") || other.tag.Equals("famale"))
 		{
-			// Debug.Log("姑娘请自重");
-			//给女人加一顶绿帽子
-			EventNotificationCenter.GetInstance().Broadcast<int>(BroadEvent.GREENCAPDATA_EVENT,GreenCap.Give_Famale);
-			Destroy(this.gameObject);
+			if(sort == DropSort.head_icon)
+			{
+				int id = other.tag.Equals("male") ? GreenCap.Give_Famale : GreenCap.Give_Male;
+				EventNotificationCenter.GetInstance().Broadcast<int>(BroadEvent.GREENCAPDATA_EVENT,id);
+				Destroy(this.gameObject);
+			}else
+			{
+				int id = other.tag.Equals("male") ? GreenCap.Give_Male : GreenCap.Give_Famale;
+				EventNotificationCenter.GetInstance ().Broadcast<DropHeadConfig,int> (BroadEvent.EFFECT_EVENT,mConfig,id);
+				Destroy(this.gameObject);
+			}
+		}
 
-		}
-		if(other.tag.Equals("famale"))
-		{
-			// Debug.Log("先生别这样");
-			//给男人加一顶绿帽子
-			EventNotificationCenter.GetInstance().Broadcast<int>(BroadEvent.GREENCAPDATA_EVENT,GreenCap.Give_Male);
-			Destroy(this.gameObject);
-		}
+	
 	}
 }

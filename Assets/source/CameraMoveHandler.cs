@@ -8,6 +8,7 @@ public class CameraMoveHandler : MonoBehaviour {
 	private bool isMoveCamera = false;
 	private const string GUI_NAME = "greenCap";
 	private float initPositionY = 0.571f;
+	private int maleOrderLayer = 2;
 
 	void Start () {
 		EventNotificationCenter.GetInstance().AddListener<bool>(BroadEvent.PAUSE_EVENT,PauseMove);
@@ -61,6 +62,8 @@ public class CameraMoveHandler : MonoBehaviour {
 			obj.transform.parent = player.transform;
 			obj.transform.localPosition = new Vector3(-0.027f,initPositionY,0);
 			obj.layer = obj.transform.parent.gameObject.layer;
+			obj.GetComponent<SpriteRenderer>().sortingOrder = maleOrderLayer;
+			maleOrderLayer++;
 			initPositionY += 0.3f;
 		}
 

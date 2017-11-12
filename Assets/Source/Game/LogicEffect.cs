@@ -4,26 +4,28 @@ using UnityEngine;
 
 public class LogicEffect : PMonoSingleton<LogicEffect> {
 
-	protected GameObject m_selfObj;
-
+	public PlayerController maleController;
+	public PlayerController famaleController;
+	private int colliderId;
 
 	void Start()
 	{
-		EventNotificationCenter.GetInstance ().AddListener<int,GameObject,float> (BroadEvent.EFFECT_EVENT, OnDoEffect);
+		EventNotificationCenter.GetInstance ().AddListener<DropHeadConfig,int> (BroadEvent.EFFECT_EVENT, OnDoEffect);
 	}
 
 	void OnDestroy()
 	{
-		EventNotificationCenter.GetInstance ().RemoveListener<int,GameObject,float> (BroadEvent.EFFECT_EVENT, OnDoEffect);
+		EventNotificationCenter.GetInstance ().RemoveListener<DropHeadConfig,int> (BroadEvent.EFFECT_EVENT, OnDoEffect);
 	}
 
-	public void OnDoEffect(int effectId,GameObject selfObj,float buffTime)
+	public void OnDoEffect(DropHeadConfig config,int id)
 	{
-		m_selfObj = selfObj;
-		switch (effectId) 
+		colliderId = id;
+		Debug.Log(Effect.Drink_Beer+"---------------"+config.GetEffectId());
+		switch (config.GetEffectId()) 
 		{
 		case Effect.Drink_Beer:
-			OnDrinkBeer (buffTime);
+			OnDrinkBeer (config.GetTime());
 			break;
 		case Effect.Belive_Effect:
 			OnBelive ();
@@ -34,13 +36,13 @@ public class LogicEffect : PMonoSingleton<LogicEffect> {
 	public void OnBelive()
 	{
 		Debug.Log ("--on belive--");
-		int layer = m_selfObj.layer;
+		// int layer = m_selfObj.layer;
 	}
 
 	public void OnDrinkBeer(float buffTime)
 	{
 		Debug.Log ("--on drink beer--");
-		PlayerController controller = m_selfObj.GetComponent<PlayerController>();
+		PlayerController controller = colliderId == GreenCap.Give_Male ? maleController : famaleController;
 		controller.ChangeSpeed (-controller.speed);
 		StartCoroutine (WaitToDoNext(buffTime,controller));
 	}

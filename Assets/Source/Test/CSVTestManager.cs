@@ -34,6 +34,11 @@ public class CSVTestManager :  PSingleton<CSVTestManager>{
 		}
 	}
 
+	public List<CSVTestConfig> GetConfigs()
+	{
+		return listConfig;
+	}
+
 	protected void DebugInfo()
 	{
 		foreach (CSVTestConfig config in listConfig) 
